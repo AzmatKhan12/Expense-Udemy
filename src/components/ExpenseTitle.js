@@ -1,7 +1,7 @@
 
 import './ExpenseTitle.css';
 
-function ExpenseTitle(props){
+const ExpenseTitle = (props) =>{
 
     return (
       <div className="title-location">
