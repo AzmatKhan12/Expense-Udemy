@@ -1,6 +1,7 @@
 /** @format */
 
- import ExpenseItem from './components/ExpenseItem';
+ import React from 'react';
+import Expenses from './components/Expenses';
 
 function App() {
   
@@ -27,30 +28,24 @@ function App() {
       explocation: "Old Custom Basti",
     },
   ];
+ 
+  // this is JavaScript code
+  // return React.createElement(
+  //   "div",
+  //   {},
+  //   React.createElement("h1", {}, "Expense Tracker"),
+  //   React.createElement(Expenses,{item:expense})
+  // );
 
+  
+  // this is JSX code 
   return (
     <div>
-      /<h1> Expense Tracker</h1>
-      <ExpenseItem
-        date={expense[0].date}
-        title={expense[0].expeseTitle}
-        amount={expense[0].expeseAmount}
-        location={expense[0].explocation}
-      ></ExpenseItem>
-      <ExpenseItem
-        date={expense[1].date}
-        title={expense[1].expeseTitle}
-        amount={expense[1].expeseAmount}
-        location={expense[1].explocation}
-      ></ExpenseItem>
-      <ExpenseItem
-        date={expense[2].date}
-        title={expense[2].expeseTitle}
-        amount={expense[2].expeseAmount}
-        location={expense[2].explocation}
-      ></ExpenseItem>
+      <h1> Expense Tracker</h1>
+      <Expenses item ={expense}/>
     </div>
   );
 }
 
 export default App;
+

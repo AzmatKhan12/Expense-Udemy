@@ -7,39 +7,11 @@
     margin: 1rem 0;
     border-radius: 12px;
     background-color: #4b4b4b;
-}
-
-.Expense-item_description{
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    align-items: flex-end;
-    flex-flow: column-reverse;
-    justify-content: flex-start;
-    flex: 1;
-}
-
-.Expene-item_price{
-    font-size: 1rem;
-    font-weight: bold;
-    color: white;
-    background-color: #40005d;
-    border: 1px solid white;
-    padding: 0.5rem;
-    border-radius: 12px;
-   
-}
-.title-location{
-    margin-left: 50 px;
+    
 }
 
 
-h2{
-    color: #3a3a3a;
-    font-size: 1rem;
-    margin: 0 1rem;
-    color: white;
-}
+
 
 @media(min-width:580px){
  
