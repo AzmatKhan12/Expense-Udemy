@@ -12,6 +12,11 @@ const ExpenseItem = (props) => {
   let clickHandlar = ()=>{
      setItem('updates')
   }
+
+  const [amount,setAmount]=useState(props.amount)
+  let clickBtn= ()=>{
+      setAmount('$100')
+  }
  
   return (
     <div className="Expense-item">
@@ -21,7 +26,8 @@ const ExpenseItem = (props) => {
         title ={title} 
         location = {props.location}/>
        
-     <ExpenseAmount  amount ={props.amount}/>
+     <ExpenseAmount  amount ={amount}/>
+     <button  onClick={clickBtn}>ChnageAmount</button>
      
      <button onClick={clickHandlar}>Delete-Expense</button>
    
