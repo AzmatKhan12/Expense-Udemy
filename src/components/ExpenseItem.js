@@ -1,14 +1,16 @@
 /** @format */
-import React from "react";
+import React ,{useState} from  "react";
 import "./ExpenseItem.css";
 import ExpenseDate from "./ExpenseDate";
 import ExpenseTitle from "./ExpenseTitle";
 import ExpenseAmount from "./ExpenseAmount";
 
 const ExpenseItem = (props) => {
+
+  const [title,setItem]= useState(props.title)
    
   let clickHandlar = ()=>{
-    console.log('clicked')
+     setItem('updates')
   }
  
   return (
@@ -16,7 +18,7 @@ const ExpenseItem = (props) => {
       <ExpenseDate  date ={props.date}/>
        
       <ExpenseTitle 
-        title ={props.title} 
+        title ={title} 
         location = {props.location}/>
        
      <ExpenseAmount  amount ={props.amount}/>
