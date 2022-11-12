@@ -6,11 +6,15 @@ import ExpenseTitle from "./ExpenseTitle";
 import ExpenseAmount from "./ExpenseAmount";
 
 const ExpenseItem = (props) => {
+  const [newTitle,setNewTitle]=useState("")
+ let  changeHandaler=(event)=>{
+   setNewTitle(event.target.value);
+  }
 
   const [title,setItem]= useState(props.title)
    
   let clickHandlar = ()=>{
-     setItem('updates')
+     setItem(newTitle)
   }
 
   const [amount,setAmount]=useState(props.amount)
@@ -29,6 +33,7 @@ const ExpenseItem = (props) => {
      <ExpenseAmount  amount ={amount}/>
      <button  onClick={clickBtn}>ChnageAmount</button>
      
+     <input type="text" value={newTitle} onChange={changeHandaler}/>
      <button onClick={clickHandlar}>Delete-Expense</button>
    
     </div>
