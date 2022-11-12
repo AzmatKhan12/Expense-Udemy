@@ -1,7 +1,8 @@
 /** @format */
 
  import React from 'react';
-import Expenses from './components/Expenses';
+import Expenses from './components/Expenses/Expenses';
+import ExpenseForm from './components/NewExpenses/ExpenseForm';
 
 const App = ()=> {
   
@@ -41,7 +42,7 @@ const App = ()=> {
   // this is JSX code 
   return (
     <div>
-      <h1> Expense Tracker</h1>
+      <ExpenseForm/>
       <Expenses item ={expense}/>
     </div>
   );
