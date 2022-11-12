@@ -3,7 +3,7 @@
  import React from 'react';
 import Expenses from './components/Expenses';
 
-function App() {
+const App = ()=> {
   
   let expense = [
     {
