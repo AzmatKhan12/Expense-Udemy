@@ -1,5 +1,5 @@
 /** @format */
-import React ,{useState} from  "react";
+import React  from  "react";
 import "./ExpenseItem.css";
 import ExpenseDate from "./ExpenseDate";
 import ExpenseTitle from "./ExpenseTitle";

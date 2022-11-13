@@ -7,15 +7,13 @@ const Expenses = (props) => {
       <div className="Expenses">
         {
           props.item.map((expense) => (
-          <ExpenseItem
-            date={expense.date}
-            title={expense.expeseTitle}
-            amount={expense.expeseAmount}
-          
-          />
-        ))
+            <ExpenseItem
+              date={expense.date}
+              title={expense.expeseTitle}
+              amount={expense.expeseAmount}
+            />
+          ))
         }
-
       </div>
     );
 }

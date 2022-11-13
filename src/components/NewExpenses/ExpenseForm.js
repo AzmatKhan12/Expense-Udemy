@@ -4,6 +4,7 @@ import ExpNewForm from "./ExpNewForm";
 
 const ExpenseForm = (props) => {
   const saveExpensDataHandaler = (enterdExpenseData) =>{
+    console.log(enterdExpenseData);
     const expenseData ={
       ...enterdExpenseData,
       id : Math.random().toString()

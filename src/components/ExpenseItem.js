@@ -9,14 +9,11 @@ const ExpenseItem = (props) => {
  
   return (
     <div className="Expense-item">
-      <ExpenseDate  date ={props.date}/>
-       
-      <ExpenseTitle 
-        title ={props.title} 
-        location = {props.location}/>
-       
-     <ExpenseAmount  amount ={props.amount}/>  
-   
+      <ExpenseDate date={props.date} />
+
+      <ExpenseTitle title={props.title} />
+
+      <ExpenseAmount amount={props.amount} />
     </div>
   );
 }
