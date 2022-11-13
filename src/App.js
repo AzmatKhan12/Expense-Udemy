@@ -29,21 +29,18 @@ const App = ()=> {
       explocation: "Old Custom Basti",
     },
   ];
- 
-  // this is JavaScript code
-  // return React.createElement(
-  //   "div",
-  //   {},
-  //   React.createElement("h1", {}, "Expense Tracker"),
-  //   React.createElement(Expenses,{item:expense})
-  // );
+   
+  const addExpenseHandlar =(expense) =>{
+     console.log(expense)
+  }
+  
 
   
-  // this is JSX code 
+  
   return (
     <div>
-      <ExpenseForm/>
-      <Expenses item ={expense}/>
+      <ExpenseForm onAddExpense={addExpenseHandlar} />
+      <Expenses item={expense} />
     </div>
   );
 }

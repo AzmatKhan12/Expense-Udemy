@@ -1,0 +1,23 @@
+
+
+
+.Expense-item_description{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: flex-end;
+    flex-flow: column-reverse;
+    justify-content: flex-start;
+    flex: 1;
+}
+
+.Expene-item_price{
+    font-size: 1rem;
+    font-weight: bold;
+    color: white;
+    background-color: #40005d;
+    border: 1px solid white;
+    padding: 0.5rem;
+    border-radius: 12px;
+   
+}
