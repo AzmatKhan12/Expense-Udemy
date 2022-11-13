@@ -16,25 +16,37 @@ const ExpNewForm = (props) => {
 
   const titleChangeHandler = (event) => {
     // setEnterdTitle(event.target.value);
-    setUserInput({
-      ...userInput,
-      enterdTitle: event.target.value
+    // setUserInput({
+    //   ...userInput,
+    //   enterdTitle: event.target.value
+    // });
+
+    setUserInput((preState)=>{
+      return { ...preState, enterdTitle: event.target.value };
     });
   };
 
   const amountChangeHandler = (event) => {
     // setEnterdAmount(event.target.value);
-     setUserInput({
-       ...userInput,
-       enterdAmount: event.target.value,
+    //  setUserInput({
+    //    ...userInput,
+    //    enterdAmount: event.target.value,
+    //  });
+
+     setUserInput((preState) => {
+       return { ...preState, enterdAmount: event.target.value };
      });
   };
 
   const dateChangeHandler = (event) => {
     // setEnterdDate(event.target.value);
-    setUserInput({
-      ...userInput,
-      enterdDat: event.target.value,
+    // setUserInput({
+    //   ...userInput,
+    //   enterdDat: event.target.value,
+    // });
+
+    setUserInput((preState) => {
+      return { ...preState, enterdDat: event.target.value };
     });
   };
 
