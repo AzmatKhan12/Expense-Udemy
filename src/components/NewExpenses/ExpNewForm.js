@@ -33,7 +33,6 @@ const ExpNewForm = (props) => {
       date: new Date(enterdDate),
     };
     
-
     props.onSaveExpensData(expenseData);
 
     console.log(expenseData);
