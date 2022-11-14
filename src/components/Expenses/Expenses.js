@@ -6,33 +6,36 @@ import ExpenseItem from "./ExpenseItem";
 import ExpensesFilter from "./ExpensesFilter";
 
 
-const Expenses = ({ item }) => {
-  const [selectYear, setSelectedYear] = useState("2018");
+const Expenses = (props) => {
+  const [filterdYear, setSelectedYear] = useState("2022");
 
   const FilterChangeHandlar = (selectedYear) => {
     setSelectedYear(selectedYear);
   };
+
+  const filterdExpense =props.item.filter(expense =>{
+    return expense.date.getFullYear().toString() === filterdYear;
+  })
   return (
     <div>
-        <div>
-          <ExpensesFilter
-            selected={selectYear}
-            onChangeFilter={FilterChangeHandlar}
-          />
-        </div>
-        <div className="Expenses">
-          {
-              item.map((val, key) => {
-              return (
-                <ExpenseItem
-                  date={val.date}
-                  title={val.expeseTitle}
-                  amount={val.expeseAmount}
-                ></ExpenseItem>
-              );
-            })
-          }
-        </div>
+      <div>
+        <ExpensesFilter
+          selected={filterdYear}
+          onChangeFilter={FilterChangeHandlar}
+        />
+      </div>
+      <div className="Expenses">
+        {
+          filterdExpense.map((val, key) => (
+            <ExpenseItem
+              key={val.id}
+              date={val.date}
+              title={val.expeseTitle}
+              amount={val.expeseAmount}
+            ></ExpenseItem>
+          ))
+        }
+      </div>
     </div>
   );
 };
