@@ -22,7 +22,7 @@ import ExpenseForm from './components/NewExpenses/ExpenseForm';
     },
     {
       id: "exp3",
-      date: new Date(2022, 6, 10),
+      date: new Date(2020, 6, 10),
       expeseTitle: "Room Rent",
       expeseAmount: 4200,
       
