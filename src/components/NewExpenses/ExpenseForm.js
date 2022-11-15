@@ -12,7 +12,7 @@ const ExpenseForm = (props) => {
 
     props.onAddExpense(expenseData)
     console.log(expenseData);
-    setEditing(false)
+    setEditing(false);
   }
    const [isEditing,setEditing] = useState(false);
     const startEditingHandler = ()=>{
