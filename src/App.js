@@ -1,54 +1,39 @@
 /** @format */
 
- import React,{useState} from 'react';
-import Expenses from './components/Expenses/Expenses';
-import ExpenseForm from './components/NewExpenses/ExpenseForm';
+import { Switch, Route, Redirect } from "react-router-dom";
+import { useContext } from "react";
 
+import Layout from "./components/Layout/Layout";
+import UserProfile from "./components/Profile/UserProfile";
+import AuthPage from "./pages/AuthPage";
+import HomePage from "./pages/HomePage";
+import AuthContext from "./components/Store/Auth-context";
 
-  let Dummy_Expenses = [
-    {
-      id: "exp1",
-      date: new Date(2022, 11, 10),
-      expeseTitle: "food",
-      expeseAmount: 8500,
-      
-    },
-    {
-      id: "exp2",
-      date: new Date(2021, 12, 25),
-      expeseTitle: "Car Insurance",
-      expeseAmount: 4000,
-      
-    },
-    {
-      id: "exp3",
-      date: new Date(2020, 6, 10),
-      expeseTitle: "Room Rent",
-      expeseAmount: 4200,
-      
-    },
-  ];
-
-const App = ()=> {
-
-  const [expenses, setExpenses] = useState(Dummy_Expenses);
-  
-  const addExpenseHandlar =(expense) =>{
-    
-    setExpenses((prevExpense) =>{
-      return [expense,...prevExpense]
-    });
-    
-    
-  };
-
+function App() {
+  const authCtx = useContext(AuthContext);
   return (
     <div>
-      <ExpenseForm onAddExpense={addExpenseHandlar} />
-      <Expenses item={expenses} />
+      <Layout>
+        <Switch>
+          {!authCtx.isLoggedIn && (
+            <Route path="/auth">
+              <AuthPage />
+            </Route>
+          )}
+
+          <Route path="/profile">
+            {authCtx.isLoggedIn && <UserProfile />}
+            {!authCtx.isLoggedIn && <Redirect to="/auth" />}
+          </Route>
+
+          <Route path="/*">
+            <Redirect to="/" />
+          </Route>
+        </Switch>
+      </Layout>
+      {authCtx.isLoggedIn && <HomePage />}
     </div>
   );
 }
 
 export default App;
-
