@@ -37,7 +37,7 @@ const UserProfileForm = ()=>{
 
      const UserData =useEffect(() => {
       getDataFromServer();
-       
+      
     },[getDataFromServer]);
       
     
@@ -79,7 +79,31 @@ const UserProfileForm = ()=>{
         
        }
    }
-  
+    
+
+      async function  verifyMailHandler (){
+       try {
+            const response = await fetch(
+              "https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSyCXji1ddbboAkkLZmjuj16NFATSWk4uHz0",
+              {
+                method: "POST",
+                body: JSON.stringify({
+                  idToken: authCtx.token,
+                  requestType: "VERIFY_EMAIL",
+                }),
+                headers: {
+                  "Content-Type": "application/json",
+                },
+              }
+            );
+            const data = await response.json();
+            console.log(data); 
+        }
+         catch (error) {
+          console.log(error)
+        }   
+        
+     }
     return (
       <Fragment>
         <header>
@@ -104,22 +128,12 @@ const UserProfileForm = ()=>{
                   <GoMarkGithub />
                   Full Name
                 </label>
-                <input
-                  type="text"
-                  id="text"
-                  ref={inputUserName}
-                  
-                />
+                <input type="text" id="text" ref={inputUserName} />
                 <label className="space" htmlFor="url">
                   <HiGlobeAlt />
                   Profile Photo URL
                 </label>
-                <input
-                  type="url"
-                  id="url"
-                  ref={inputUserUrl}
-                
-                />
+                <input type="url" id="url" ref={inputUserUrl} />
                 <Button className="btn-btn" variant="danger">
                   Cancel
                 </Button>
@@ -135,6 +149,15 @@ const UserProfileForm = ()=>{
                 </Button>
               </div>
             </form>
+            <div>
+              <Button
+                className="space"
+                variant="success"
+                onClick={verifyMailHandler}
+              >
+                Verify-Email
+              </Button>
+            </div>
           </main>
         </Card>
       </Fragment>
