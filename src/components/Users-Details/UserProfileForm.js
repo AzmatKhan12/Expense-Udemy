@@ -1,4 +1,4 @@
-import React, { Fragment ,useRef,useContext} from "react";
+import React, { Fragment ,useRef,useContext,useEffect, useCallback} from "react";
 import { Button,Card } from "react-bootstrap";
 import HeaderPage from "./HeaderPage";
 import { GoMarkGithub } from "react-icons/go";
@@ -9,6 +9,39 @@ const UserProfileForm = ()=>{
    const authCtx = useContext(AuthContext); 
    const inputUserName =useRef(); 
    const inputUserUrl = useRef();
+   const getDataFromServer = useCallback( async ()=>{
+     try {
+          const response = fetch(
+            "https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyCXji1ddbboAkkLZmjuj16NFATSWk4uHz0",
+            {
+              method: "POST",
+              body: JSON.stringify({
+                idToken: authCtx.token,
+              }),
+              headers: {
+                "Content-Type": "application/json",
+              },
+            }
+          );
+          if(!response.ok){
+            throw new Error(`something went wrong`)
+          }
+          const data = await response.json();
+          console.log(data); 
+        } 
+        catch (error) {
+          // console.log(error)
+        }
+      
+   },[])
+
+     const UserData =useEffect(() => {
+      getDataFromServer();
+       
+    },[getDataFromServer]);
+      
+    
+   
    
    async function  submitHandler (event){
      event.preventDefault();
@@ -30,7 +63,7 @@ const UserProfileForm = ()=>{
                idToken: authCtx.token,
                displayName: EnteredUserName,
                photoUrl: EnteredUserUrl,
-               deleteAttribute: EnteredUserUrl,
+              //  deleteAttribute: EnteredUserUrl,
 
                returnSecureToken: true,
              }),
@@ -71,12 +104,22 @@ const UserProfileForm = ()=>{
                   <GoMarkGithub />
                   Full Name
                 </label>
-                <input type="text" id="text" ref={inputUserName} />
+                <input
+                  type="text"
+                  id="text"
+                  ref={inputUserName}
+                  
+                />
                 <label className="space" htmlFor="url">
                   <HiGlobeAlt />
                   Profile Photo URL
                 </label>
-                <input type="url" id="url" ref={inputUserUrl} />
+                <input
+                  type="url"
+                  id="url"
+                  ref={inputUserUrl}
+                
+                />
                 <Button className="btn-btn" variant="danger">
                   Cancel
                 </Button>

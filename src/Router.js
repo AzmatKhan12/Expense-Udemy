@@ -23,15 +23,16 @@ const Router = ()=>{
         <div>
         <Layout>
             <Switch>
-            {!authCtx.isLoggedIn && (
+            {!authCtx.isLoggedIn &&(
                 <Route path="/auth">
-                <AuthPage />
+                  <AuthPage />
                 </Route>
             )}
 
             <Route path="/profile">
                 {authCtx.isLoggedIn && <UserProfile />}
                 {!authCtx.isLoggedIn && <Redirect to="/auth" />}
+                {authCtx.isLoggedIn && <Redirect to="profile"/>}
             </Route>
 
             <Route path="/form">
@@ -41,7 +42,7 @@ const Router = ()=>{
 
             {authCtx.isLoggedIn && (
                 <Route path="/">
-                <UserWelcome />
+                  <UserWelcome />
                 </Route>
             )}
 
