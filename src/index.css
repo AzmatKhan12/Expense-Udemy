@@ -12,3 +12,12 @@ body{
     margin-left:200px ;
     background-color: aquamarine;
 }
+
+.space{
+    margin : 2rem 2rem;
+    
+}
+.btn-btn {
+    margin-left: -2rem;
+    margin-top : -11rem;
+}
