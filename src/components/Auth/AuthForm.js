@@ -8,14 +8,24 @@ const AuthForm = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [isLoading, setLoading]=useState(false);
   const [isCnfPassword,setCnfPassword]= useState(false);
+  const [isForgetPassword,setForgetPassword]= useState(true);
+  const [isHide,setHide] =useState(false)
   const authCtx = useContext(AuthContext);
-    const emailInputRef= useRef();
-    const passwordInputRef=useRef();
+  const emailInputRef= useRef();
+  const passwordInputRef=useRef();
 
   const switchAuthModeHandler = () => {
     setIsLogin((prevState) => !prevState);
-    setCnfPassword((prevState) => !prevState)
+    setCnfPassword((prevState) => !prevState);
+    // setForgetPassword((prevState)=>! prevState);
   };
+
+  const forgetPasswordHandler = () => {
+    setForgetPassword((prevState) => !prevState);
+    setHide(true);
+  };
+   
+  
 
   const submitHandler = (event)=>{
     event.preventDefault()
@@ -65,26 +75,63 @@ const AuthForm = () => {
          history.replace('/')
       })
         .catch(err=>{
-           alert(err.message);
-         });
+          alert(err.message);
+        });
   }
+
+  async function resetPasswordRequest (event){
+     
+    event.preventDefault();
+     const enteredEmail = emailInputRef.current.value;
+      try{
+         const response = await fetch(
+           "https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSyCXji1ddbboAkkLZmjuj16NFATSWk4uHz0",
+           {
+             method: "POST",
+             body: JSON.stringify({
+               requestType: "PASSWORD_RESET",
+               email: enteredEmail,
+             }),
+             headers: {
+               "Content-type": "application/json",
+             },
+           }
+         );
+          if (!response.ok) {
+            throw new Error(`something went wrong`);
+          }
+         const data = await response.json()
+         console.log (data);
+      }
+      catch(error){
+        console.log(error)
+      } 
+      //  setForgetPassword(false);
+  }
+   
+  
 
   return (
     <section className={classes.auth}>
-      <h1>{isLogin ? "Login" : "Sign Up"}</h1>
+      {!isHide && <h1>{isLogin ? "Login" : "Sign Up"}</h1>}
+      <h1 style={{ fontSize: "15px" }}>
+        {isForgetPassword ? "" : "Enter the email which you have registered"}
+      </h1>
       <form onSubmit={submitHandler}>
         <div className={classes.control}>
           <label htmlFor="email">Your Email</label>
           <input type="email" id="email" required ref={emailInputRef} />
         </div>
         <div className={classes.control}>
-          <label htmlFor="password">Your Password</label>
-          <input
-            type="password"
-            id="password"
-            required
-            ref={passwordInputRef}
-          />
+          {isForgetPassword && <label htmlFor="password">Your Password</label>}
+          {isForgetPassword && (
+            <input
+              type="password"
+              id="password"
+              required
+              ref={passwordInputRef}
+            />
+          )}
         </div>
         <div className={classes.control}>
           {isCnfPassword && <label htmlFor="password">Confirm Password</label>}
@@ -99,21 +146,32 @@ const AuthForm = () => {
           )}
         </div>
         <div className={classes.actions}>
-          {!isLoading && (
-            <button>
-              {isLogin ? "Login" : "Create Account"}
-              
+          {isLoading && <p>Sending request..</p>}
+          {isForgetPassword && (
+            <button
+              onClick={forgetPasswordHandler}
+              type="button"
+              className={classes.toggle}
+            >
+              Forget Password
             </button>
           )}
+          {!isLoading && !isHide && (
+            <button>{isLogin ? "Login" : "Create Account"}</button>
+          )}
+          {isHide && <button onClick={resetPasswordRequest}>Send Link</button>}
+
           {isLoading && <p>Sending request..</p>}
           <button
             type="button"
             className={classes.toggle}
             onClick={switchAuthModeHandler}
           >
-            {isLogin ? " Don't have an account? Sin up" : "Login with existing account"}
+            {isLogin
+              ? " Don't have an account? Sin up"
+              : "Login with existing account"}
           </button>
-        </div> 
+        </div>
       </form>
     </section>
   );
