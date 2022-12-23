@@ -1,4 +1,4 @@
-import { useState,useRef ,useContext} from 'react';
+import { useState,useRef ,useContext, useEffect} from 'react';
 import { useHistory } from 'react-router-dom';
 import AuthContext from '../Store/Auth-context';
 import classes from './AuthForm.module.css';
@@ -22,7 +22,7 @@ const AuthForm = () => {
 
   const forgetPasswordHandler = () => {
     setForgetPassword((prevState) => !prevState);
-    setHide(true);
+    setHide((prevState)=> !prevState);
   };
    
   
@@ -106,10 +106,10 @@ const AuthForm = () => {
       catch(error){
         console.log(error)
       } 
-      //  setForgetPassword(false);
+      alert('Request sent to your E-mail')
+      
   }
    
-  
 
   return (
     <section className={classes.auth}>
@@ -146,7 +146,7 @@ const AuthForm = () => {
           )}
         </div>
         <div className={classes.actions}>
-          {isLoading && <p>Sending request..</p>}
+         
           {isForgetPassword && (
             <button
               onClick={forgetPasswordHandler}

@@ -5,7 +5,7 @@ import { GoMarkGithub } from "react-icons/go";
 import { HiGlobeAlt } from "react-icons/hi";
 import AuthContext from "../Store/Auth-context";
 
-const UserProfileForm = ()=>{
+const UserProfileForm = (props)=>{
    const authCtx = useContext(AuthContext); 
    const inputUserName =useRef(); 
    const inputUserUrl = useRef();
@@ -134,7 +134,7 @@ const UserProfileForm = ()=>{
                   Profile Photo URL
                 </label>
                 <input type="url" id="url" ref={inputUserUrl} />
-                <Button className="btn-btn" variant="danger">
+                <Button className="btn-btn" variant="danger" onClick={props.hide}>
                   Cancel
                 </Button>
               </span>

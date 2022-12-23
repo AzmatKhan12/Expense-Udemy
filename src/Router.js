@@ -1,7 +1,7 @@
 
 
 import { Switch, Route, Redirect } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 
 import Layout from "./components/Layout/Layout";
 import UserProfile from "./components/Profile/UserProfile";
@@ -16,44 +16,50 @@ import UserWelcome from "./components/Users-Details/Userwelcome";
 
 
 
+
 const Router = ()=>{
     
    const authCtx = useContext(AuthContext);
+
+   const[isShown, setShown]= useState(true)
+   const HideHandler = props=>{
+    setShown(false)
+   }
   return (
-        <div>
-        <Layout>
-            <Switch>
-            {!authCtx.isLoggedIn &&(
-                <Route path="/auth">
-                  <AuthPage />
-                </Route>
-            )}
-
-            <Route path="/profile">
-                {authCtx.isLoggedIn && <UserProfile />}
-                {!authCtx.isLoggedIn && <Redirect to="/auth" />}
-                {authCtx.isLoggedIn && <Redirect to="profile"/>}
+    <div>
+      <Layout>
+        <Switch>
+          {!authCtx.isLoggedIn && (
+            <Route path="/auth">
+              <AuthPage />
             </Route>
+          )}
 
-            <Route path="/form">
-                {authCtx.isLoggedIn && <UserProfileForm />}
-                {!authCtx.isLoggedIn && <Redirect to="/auth" />}
+          <Route path="/profile">
+            {authCtx.isLoggedIn && <UserProfile />}
+            {!authCtx.isLoggedIn && <Redirect to="/auth" />}
+            {authCtx.isLoggedIn && <Redirect to="profile" />}
+          </Route>
+
+          <Route path="/form">
+            {authCtx.isLoggedIn && isShown && <UserProfileForm hide={HideHandler} />}
+            {!authCtx.isLoggedIn && <Redirect to="/auth" />}
+          </Route>
+
+          {authCtx.isLoggedIn && (
+            <Route path="/">
+              <UserWelcome />
             </Route>
+          )}
 
-            {authCtx.isLoggedIn && (
-                <Route path="/">
-                  <UserWelcome />
-                </Route>
-            )}
+          <Route path="/*">
+            <Redirect to="/" />
+          </Route>
+        </Switch>
+      </Layout>
 
-            <Route path="/*">
-                <Redirect to="/" />
-            </Route>
-            </Switch>
-        </Layout>
-
-        {authCtx.isLoggedIn && <HomePage />}
-        </div>
-    );
+      {authCtx.isLoggedIn && <HomePage />}
+    </div>
+  );
 }
 export default Router;
