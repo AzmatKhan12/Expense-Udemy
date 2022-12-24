@@ -1,13 +1,14 @@
-import React ,{useState}from "react";
+import React ,{useEffect, useState}from "react";
 import './ExpNewForm.css';
+import axios from "axios";
 
 const ExpNewForm = (props) => {
   
   const [enterdTitle,setEnterdTitle]= useState('');
   const [enterdAmount, setEnterdAmount] = useState("");
   const [enterdDate, setEnterdDate] = useState("");
-  
  
+   
   const titleChangeHandler = (event) => {
      setEnterdTitle(event.target.value);
     
@@ -24,24 +25,33 @@ const ExpNewForm = (props) => {
    
   };
 
-  const submitHandler = (event) => {
-    event.preventDefault();
+    async function submitHandler(event) {
+     event.preventDefault();
 
-    const expenseData = {
-      expeseTitle: enterdTitle,
-      expeseAmount: enterdAmount,
-      date: new Date(enterdDate),
-    };
-    
-    props.onSaveExpensData(expenseData);
+     const expenseData = {
+       expeseTitle: enterdTitle,
+       expeseAmount: enterdAmount,
+       date: new Date(enterdDate),
+     };
+     
+     try{
+      const response = await axios.post(
+        "https://expense-tracker-40b34-default-rtdb.firebaseio.com/expense.json",
+        expenseData
+      );
+      const data =await console.log(response.data)
+     }
+     catch(error){
+        console.log(error)
+     }
 
-    console.log(expenseData);
-    setEnterdTitle("");
-    setEnterdAmount("");
-    setEnterdDate('');
-      
-      
-  };
+     props.onSaveExpensData(expenseData);
+
+     console.log(expenseData);
+     setEnterdTitle("");
+     setEnterdAmount("");
+     setEnterdDate("");
+   };
 
   return (
     <form onSubmit={submitHandler}>

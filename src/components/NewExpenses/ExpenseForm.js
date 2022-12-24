@@ -1,8 +1,10 @@
-import React,{useState} from "react";
+import React,{useState,useEffect} from "react";
 import './ExpenseForm.css';
 import ExpNewForm from "./ExpNewForm";
+import axios from "axios";
 
 const ExpenseForm = (props) => {
+
   const saveExpensDataHandaler = (enterdExpenseData) =>{
     console.log(enterdExpenseData);
     const expenseData ={
@@ -10,7 +12,7 @@ const ExpenseForm = (props) => {
       id : Math.random().toString()
     }
 
-    props.onAddExpense(expenseData)
+    props.onAddExpense(expenseData);
     console.log(expenseData);
     setEditing(false);
   }

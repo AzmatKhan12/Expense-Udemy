@@ -2,7 +2,8 @@
 
 
 
- import React, { useState } from "react";
+ import axios from "axios";
+import React, { useEffect, useState } from "react";
  import Expenses from "../../components/Expenses/Expenses";
  import ExpenseForm from "../../components/NewExpenses/ExpenseForm";
 
@@ -32,14 +33,34 @@
   ];
 
   const StartingPageContent = () => {
-  const [expenses, setExpenses] = useState(Dummy_Expenses);
+  const [expenses, setExpenses] = useState([]);
+
+   useEffect(() => {
+     getRequest();
+   }, []);
+
+   async function getRequest() {
+     try {
+       const response = await axios.get(
+         "https://expense-tracker-40b34-default-rtdb.firebaseio.com/expense.json"
+       );
+       const data = await (response.data)
+       setExpenses(data);
+       console.log({data});
+     } catch (error) {
+       console.log(error);
+     }
+   }
 
   const addExpenseHandlar = (expense) => {
-    setExpenses((prevExpense) => {
-      return [expense, ...prevExpense];
-    });
+    console.log({expense})
+    setExpenses(expense);
+      // return [expense, ...expenses];
+    
   };
+ 
 
+  
   return (
     <div>
       <ExpenseForm onAddExpense={addExpenseHandlar} />

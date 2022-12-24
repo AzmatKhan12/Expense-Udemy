@@ -120,7 +120,7 @@ const AuthForm = () => {
       <form onSubmit={submitHandler}>
         <div className={classes.control}>
           <label htmlFor="email">Your Email</label>
-          <input type="email" id="email" required ref={emailInputRef} />
+          <input type="email" id="email" value="azmat.dgms@gmail.com" required ref={emailInputRef} />
         </div>
         <div className={classes.control}>
           {isForgetPassword && <label htmlFor="password">Your Password</label>}
@@ -129,6 +129,7 @@ const AuthForm = () => {
               type="password"
               id="password"
               required
+              value="1234567"
               ref={passwordInputRef}
             />
           )}
