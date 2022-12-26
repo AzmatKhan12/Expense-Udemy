@@ -29,25 +29,14 @@ const ExpNewForm = (props) => {
      event.preventDefault();
 
      const expenseData = {
-       expeseTitle: enterdTitle,
-       expeseAmount: enterdAmount,
+       title: enterdTitle,
+       amount: enterdAmount,
        date: new Date(enterdDate),
      };
-     
-     try{
-      const response = await axios.post(
-        "https://expense-tracker-40b34-default-rtdb.firebaseio.com/expense.json",
-        expenseData
-      );
-      const data =await console.log(response.data)
-     }
-     catch(error){
-        console.log(error)
-     }
-
+    
      props.onSaveExpensData(expenseData);
 
-     console.log(expenseData);
+    //  console.log(expenseData);
      setEnterdTitle("");
      setEnterdAmount("");
      setEnterdDate("");
