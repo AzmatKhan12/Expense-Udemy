@@ -2,8 +2,13 @@ import { useState,useRef ,useContext, useEffect} from 'react';
 import { useHistory } from 'react-router-dom';
 import AuthContext from '../Store/Auth-context';
 import classes from './AuthForm.module.css';
+import { useDispatch,useSelector } from 'react-redux';
+import { AuthSliceAction } from '../../Redux-store/AuthSlice';
+
 
 const AuthForm = () => {
+  
+  const dispatch = useDispatch();
   const history = useHistory();
   const [isLogin, setIsLogin] = useState(true);
   const [isLoading, setLoading]=useState(false);
@@ -13,7 +18,7 @@ const AuthForm = () => {
   const authCtx = useContext(AuthContext);
   const emailInputRef= useRef();
   const passwordInputRef=useRef();
-
+  
   const switchAuthModeHandler = () => {
     setIsLogin((prevState) => !prevState);
     setCnfPassword((prevState) => !prevState);
@@ -36,10 +41,12 @@ const AuthForm = () => {
     
     let url;
     if(isLogin){
-      url ="https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCXji1ddbboAkkLZmjuj16NFATSWk4uHz0";
+      url =
+        "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCXji1ddbboAkkLZmjuj16NFATSWk4uHz0";
     }
     else{
-      url ="https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCXji1ddbboAkkLZmjuj16NFATSWk4uHz0";
+      url =
+        "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCXji1ddbboAkkLZmjuj16NFATSWk4uHz0";
      
     }
    fetch(
@@ -70,9 +77,15 @@ const AuthForm = () => {
            
           });
         }
-      }).then(data=>{
-         authCtx.login(data.idToken); // set the token for login
-         history.replace('/')
+      }).then((data)=>{
+        const log = {
+          token: data.token,
+          email: data.email,
+        };
+        // set the token for login
+        dispatch(AuthSliceAction.login(log));
+
+        history.replace("/");
       })
         .catch(err=>{
           alert(err.message);
@@ -120,7 +133,7 @@ const AuthForm = () => {
       <form onSubmit={submitHandler}>
         <div className={classes.control}>
           <label htmlFor="email">Your Email</label>
-          <input type="email" id="email" value="azmat.dgms@gmail.com" required ref={emailInputRef} />
+          <input type="email" id="email"  required ref={emailInputRef} />
         </div>
         <div className={classes.control}>
           {isForgetPassword && <label htmlFor="password">Your Password</label>}
@@ -129,7 +142,7 @@ const AuthForm = () => {
               type="password"
               id="password"
               required
-              value="1234567"
+      
               ref={passwordInputRef}
             />
           )}

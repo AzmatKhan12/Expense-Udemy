@@ -15,7 +15,7 @@ export const AuthContextProvider= (props)=>{
     const [isEmail, setIsEmail]=useState(storedEmail)
     
 
-    const userIsLoggedIn = !!token // to convert it in boolean value it toggle as true & false 
+    const userIsLoggedIn = !!token // to convert it in boolean valaue it toggle as true & false 
     const loginHandler = (token,email)=>{
        setToken(token)
        localStorage.setItem('token',token)

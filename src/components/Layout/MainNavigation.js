@@ -1,15 +1,23 @@
 import { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import AuthContext from '../Store/Auth-context';
+// import AuthContext from '../Store/Auth-context';
+import { useSelector,useDispatch } from 'react-redux';
+import { AuthSliceAction } from '../../Redux-store/AuthSlice';
 
 import classes from './MainNavigation.module.css';
 
 const MainNavigation = () => {
+   const dispatch = useDispatch()
+  const isLoggedIn = useSelector(state =>{
+       return state.Auth.isLoggedIn
+  });
+ 
 
-  const authCtx = useContext(AuthContext);
-  const isLoggedIn = authCtx.isLoggedIn;
+  // const authCtx = useContext(AuthContext);
+  // const isLoggedIn = authCtx.isLoggedIn;
   const logoutHandler =()=>{
-      authCtx.logout();
+    dispatch(AuthSliceAction.logout())
+      
   }
 
   return (
